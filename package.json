@@ -1,0 +1,23 @@
+{
+  "name": "havagas-monorepo",
+  "version": "1.0.0",
+  "description": "Sistema de Gerenciamento de Coworkings - Há Vagas",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run start:dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "seed": "cd backend && npm run seed",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "coworking",
+    "nestjs",
+    "nextjs",
+    "typescript",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "MIT"
+}
