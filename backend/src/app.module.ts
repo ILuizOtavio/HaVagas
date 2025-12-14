@@ -14,15 +14,17 @@ import { ReservasModule } from './modules/reservas.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
+        type: 'better-sqlite3',
+        database: configService.get('DB_DATABASE', 'database.sqlite'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true, // ATENÇÃO: usar false em produção
         logging: false,
+        foreignKeys: true,
+        enableWAL: false,
+        prepareDatabase: (db: any) => {
+          db.pragma('foreign_keys = ON');
+          db.pragma('journal_mode = WAL');
+        },
       }),
       inject: [ConfigService],
     }),

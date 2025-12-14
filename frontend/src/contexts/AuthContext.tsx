@@ -29,6 +29,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Versão do banco de dados (mudou de PostgreSQL para SQLite)
+    const DB_VERSION = 'sqlite-v1';
+    const storedVersion = localStorage.getItem('db_version');
+
+    // Se a versão mudou ou não existe, limpar dados antigos
+    if (storedVersion !== DB_VERSION) {
+      localStorage.clear();
+      localStorage.setItem('db_version', DB_VERSION);
+      setLoading(false);
+      return;
+    }
+
     // Recuperar do localStorage ao carregar
     const storedToken = localStorage.getItem('token');
     const storedUsuario = localStorage.getItem('usuario');

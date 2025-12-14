@@ -28,18 +28,17 @@ export class Reserva {
   @Column({ name: 'espaco_id' })
   espacoId: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   dataInicio: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   dataFim: Date;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'real' })
   valorTotal: number;
 
   @Column({
-    type: 'enum',
-    enum: StatusReserva,
+    type: 'text',
     default: StatusReserva.PENDENTE,
   })
   status: StatusReserva;
