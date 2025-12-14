@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { UsuariosService } from '../services/usuarios.service';
-import { CreateUsuarioDto, UpdateUsuarioDto } from '../dto/usuario.dto';
+import { LoginDto, CreateUsuarioDto, UpdateUsuarioDto } from '../dto/usuario.dto';
 
 @ApiTags('usuarios')
 @Controller('usuarios')
@@ -10,7 +10,7 @@ export class UsuariosController {
 
   @Post('login')
   @ApiOperation({ summary: 'Fazer login' })
-  login(@Body() loginDto: { email: string; senha: string }) {
+  login(@Body() loginDto: LoginDto) {
     return this.usuariosService.login(loginDto.email, loginDto.senha);
   }
 

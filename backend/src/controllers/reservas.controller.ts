@@ -10,6 +10,7 @@ export class ReservasController {
 
   @Post()
   @ApiOperation({ summary: 'Criar nova reserva' })
+  @ApiQuery({ name: 'usuarioId', description: 'ID do usuário que está fazendo a reserva', example: '0eecc7dc-7f81-45b5-877d-e2fb393be075' })
   create(
     @Query('usuarioId') usuarioId: string,
     @Body() createReservaDto: CreateReservaDto,
