@@ -30,15 +30,14 @@ export class Espaco {
   descricao: string;
 
   @Column({
-    type: 'enum',
-    enum: TipoEspaco,
+    type: 'text',
   })
   tipo: TipoEspaco;
 
   @Column({ type: 'int' })
   capacidade: number;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'real' })
   precoPorHora: number;
 
   @Column({ type: 'simple-array', nullable: true })

@@ -45,7 +45,7 @@ export default function CoworkingCard({ coworking }: CoworkingCardProps) {
           {coworking.espacos && coworking.espacos.length > 0 && (
             <div className="mt-3 pt-3 border-t border-gray-200">
               <span className="text-sm font-semibold text-primary-600">
-                {coworking.espacos.length} espaço{coworking.espacos.length !== 1 ? 's' : ''} disponível{coworking.espacos.length !== 1 ? 'eis' : ''}
+                {coworking.espacos.length} espaço{coworking.espacos.length !== 1 ? 's' : ''} disponíve{coworking.espacos.length !== 1 ? 'is' : 'l'}
               </span>
             </div>
           )}

@@ -104,8 +104,8 @@ export default function LoginPage() {
           <div className="text-sm text-gray-600">
             <p className="font-semibold mb-2">Usuários de teste:</p>
             <div className="space-y-1 bg-gray-50 p-3 rounded">
-              <p><strong>Email:</strong> joao.silva@email.com</p>
-              <p><strong>Senha:</strong> senha123</p>
+              <p><strong>Email:</strong> joao@email.com</p>
+              <p><strong>Senha:</strong> 123456</p>
             </div>
           </div>
         </div>

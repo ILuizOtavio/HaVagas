@@ -37,10 +37,10 @@ export class Coworking {
   @Column({ type: 'text', nullable: true })
   website: string;
 
-  @Column({ type: 'time', nullable: true, name: 'horario_abertura' })
+  @Column({ type: 'text', nullable: true, name: 'horario_abertura' })
   horarioAbertura: string;
 
-  @Column({ type: 'time', nullable: true, name: 'horario_fechamento' })
+  @Column({ type: 'text', nullable: true, name: 'horario_fechamento' })
   horarioFechamento: string;
 
   @Column({ default: true })
