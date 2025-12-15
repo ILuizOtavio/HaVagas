@@ -5,3 +5,5 @@ dist/
 *.log
 database.sqlite
 *.sqlite
+.vercel
+.env*.local
