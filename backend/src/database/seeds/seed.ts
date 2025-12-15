@@ -21,9 +21,11 @@ export async function runSeed(existingDataSource?: DataSource) {
     const espacoRepository = ds.getRepository(Espaco);
     const reservaRepository = ds.getRepository(Reserva);
 
-    // Sincronizar schema (criar tabelas se não existirem)
-    await dataSource.synchronize();
-    console.log('📋 Tabelas criadas/verificadas');
+    // Sincronizar schema (criar tabelas se não existirem) - só necessário em desenvolvimento
+    if (!existingDataSource) {
+      await ds.synchronize();
+      console.log('📋 Tabelas criadas/verificadas');
+    }
 
     // Limpar dados existentes (se houver)
     try {
