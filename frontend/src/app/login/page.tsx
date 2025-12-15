@@ -99,16 +99,6 @@ export default function LoginPage() {
             </button>
           </div>
         </form>
-
-        <div className="mt-6 border-t pt-6">
-          <div className="text-sm text-gray-600">
-            <p className="font-semibold mb-2">Usuários de teste:</p>
-            <div className="space-y-1 bg-gray-50 p-3 rounded">
-              <p><strong>Email:</strong> joao@email.com</p>
-              <p><strong>Senha:</strong> 123456</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
