@@ -2,9 +2,27 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { DataSource } from 'typeorm';
+import { runSeed } from './database/seeds/seed';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Executar seed se banco estiver vazio
+  try {
+    const dataSource = app.get(DataSource);
+    const usuarioRepository = dataSource.getRepository('Usuario');
+    const count = await usuarioRepository.count();
+    
+    if (count === 0) {
+      console.log('🌱 Banco de dados vazio. Executando seed...');
+      await runSeed(dataSource);
+    } else {
+      console.log('✅ Banco de dados já possui dados');
+    }
+  } catch (error) {
+    console.error('⚠️  Erro ao verificar/popular banco:', error.message);
+  }
 
   // CORS
   app.enableCors();

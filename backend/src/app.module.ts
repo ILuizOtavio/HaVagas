@@ -13,19 +13,28 @@ import { ReservasModule } from './modules/reservas.module';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'better-sqlite3',
-        database: configService.get('DB_DATABASE', 'database.sqlite'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true, // ATENÇÃO: usar false em produção
-        logging: false,
-        foreignKeys: true,
-        enableWAL: false,
-        prepareDatabase: (db: any) => {
-          db.pragma('foreign_keys = ON');
-          db.pragma('journal_mode = WAL');
-        },
-      }),
+      useFactory: (configService: ConfigService) => {
+        // Caminho persistente para o banco de dados
+        const dbPath = process.env.NODE_ENV === 'production' 
+          ? '/data/database.sqlite'
+          : configService.get('DB_DATABASE', 'database.sqlite');
+        
+        console.log('📁 Caminho do banco de dados:', dbPath);
+        
+        return {
+          type: 'better-sqlite3',
+          database: dbPath,
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: true, // ATENÇÃO: usar false em produção
+          logging: false,
+          foreignKeys: true,
+          enableWAL: false,
+          prepareDatabase: (db: any) => {
+            db.pragma('foreign_keys = ON');
+            db.pragma('journal_mode = WAL');
+          },
+        };
+      },
       inject: [ConfigService],
     }),
     UsuariosModule,

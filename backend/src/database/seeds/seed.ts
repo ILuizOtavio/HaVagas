@@ -6,15 +6,20 @@ import { Usuario } from '../../entities/usuario.entity';
 import { Reserva, StatusReserva } from '../../entities/reserva.entity';
 import dataSource from '../../config/database.config';
 
-async function seed() {
-  try {
-    await dataSource.initialize();
+// Função exportável para executar o seed
+export async function runSeed(existingDataSource?: DataSource) {
+  const ds = existingDataSource || dataSource;
+  
+  if (!existingDataSource) {
+    await ds.initialize();
     console.log('🔌 Conectado ao banco de dados');
+  }
 
-    const usuarioRepository = dataSource.getRepository(Usuario);
-    const coworkingRepository = dataSource.getRepository(Coworking);
-    const espacoRepository = dataSource.getRepository(Espaco);
-    const reservaRepository = dataSource.getRepository(Reserva);
+  try {
+    const usuarioRepository = ds.getRepository(Usuario);
+    const coworkingRepository = ds.getRepository(Coworking);
+    const espacoRepository = ds.getRepository(Espaco);
+    const reservaRepository = ds.getRepository(Reserva);
 
     // Sincronizar schema (criar tabelas se não existirem)
     await dataSource.synchronize();
@@ -374,11 +379,28 @@ async function seed() {
     console.log(`   - ${reservas.length} reservas`);
     console.log(`\n🔐 Senha padrão para todos os usuários: 123456\n`);
 
-    await dataSource.destroy();
+    if (!existingDataSource) {
+      await ds.destroy();
+    }
   } catch (error) {
     console.error('❌ Erro ao executar seed:', error);
+    if (!existingDataSource) {
+      await ds.destroy();
+    }
+    throw error;
+  }
+}
+
+// Função para execução standalone via npm run seed
+async function seed() {
+  try {
+    await runSeed();
+  } catch (error) {
     process.exit(1);
   }
 }
 
-seed();
+// Executar apenas se chamado diretamente
+if (require.main === module) {
+  seed();
+}
