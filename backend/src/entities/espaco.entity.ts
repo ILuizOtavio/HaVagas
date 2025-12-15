@@ -26,18 +26,16 @@ export class Espaco {
   @Column({ length: 100 })
   nome: string;
 
-  @Column({ type: 'text' })
+  @Column('text')
   descricao: string;
 
-  @Column({
-    type: 'text',
-  })
+  @Column('varchar')
   tipo: TipoEspaco;
 
-  @Column({ type: 'int' })
+  @Column('int')
   capacidade: number;
 
-  @Column({ type: 'real' })
+  @Column('decimal', { precision: 10, scale: 2 })
   precoPorHora: number;
 
   @Column({ type: 'simple-array', nullable: true })

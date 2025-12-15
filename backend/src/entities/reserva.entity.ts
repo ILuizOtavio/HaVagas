@@ -28,17 +28,17 @@ export class Reserva {
   @Column({ name: 'espaco_id' })
   espacoId: string;
 
-  @Column({ type: 'datetime' })
+  @Column()
   dataInicio: Date;
 
-  @Column({ type: 'datetime' })
+  @Column()
   dataFim: Date;
 
-  @Column({ type: 'real' })
+  @Column('decimal', { precision: 10, scale: 2 })
   valorTotal: number;
 
   @Column({
-    type: 'text',
+    type: 'varchar',
     default: StatusReserva.PENDENTE,
   })
   status: StatusReserva;
